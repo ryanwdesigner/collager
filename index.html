@@ -1,0 +1,187 @@
+<html>
+
+    <head>
+        <link rel="stylesheet" href="styles.css">
+        
+        <script src="https://github.com/niklasvh/html2canvas/releases/download/v1.1.4/html2canvas.min.js"></script>
+        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600&display=swap" rel="stylesheet">
+
+        <script src="scripts.js"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        
+        <script id="imageToolbar" type="text/html">
+        <div class="imageToolbar">
+    <input type="range" min="50" max="600" value="300" step="10" class="resizeSlider" oninput="scaleItem(this); event.stopPropagation();" onclick="event.stopPropagation();"> 
+    
+            <button class="moveUp" onclick="moveUp(this.parentNode.parentNode)">
+            <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 138.14 147.54"><defs><style>.cls-1{fill:#fff;stroke:white;stroke-linecap:round;stroke-linejoin:round;stroke-width:30px;}</style></defs><polyline class="cls-1" points="69.07 137.54 69.07 10 10 60.98"/><line class="cls-1" x1="69.07" y1="10" x2="128.14" y2="60.98"/></svg>
+            </button>
+            
+            <button class="moveDown" onclick="moveDown(this.parentNode.parentNode)">
+            <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 138.14 147.54"><defs><style>.cls-1{fill:#fff;stroke:white;stroke-linecap:round;stroke-linejoin:round;stroke-width:30px;}</style></defs><polyline class="cls-1" points="69.07 10 69.07 137.54 128.14 86.56"/><line class="cls-1" x1="69.07" y1="137.54" x2="10" y2="86.56"/></svg>
+            </button>
+            
+            <button class="removeItem" onclick="removeItem(this.parentNode)">
+            <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128.34 128.34"><defs><style>.cls-1{fill:none;stroke:white;stroke-linecap:round;stroke-linejoin:round;stroke-width:30px;}</style></defs><line class="cls-1" x1="118.34" y1="118.34" x2="10" y2="10"/><line class="cls-1" x1="10" y1="118.34" x2="118.34" y2="10"/></svg>
+            </button>
+            
+            </div>
+        </script>
+        
+        <script id="textToolbar" type="text/html">
+            <div class="textToolbar">
+    <input type="range" min="12" max="70" value="12" step="2" class="resizeSlider" oninput="scaleItem(this); event.stopPropagation();" onclick="event.stopPropagation();"> 
+    
+                <button class="moveUp" onclick="moveUp(this.parentNode.parentNode)">
+            <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 138.14 147.54"><defs><style>.cls-1{fill:#fff;stroke:white;stroke-linecap:round;stroke-linejoin:round;stroke-width:30px;}</style></defs><polyline class="cls-1" points="69.07 137.54 69.07 10 10 60.98"/><line class="cls-1" x1="69.07" y1="10" x2="128.14" y2="60.98"/></svg>
+            </button>
+        
+                <button class="toggleEdit" onclick="toggleEdit(this.parentNode.parentNode)">Done</button>
+                
+            <button class="moveDown" onclick="moveDown(this.parentNode.parentNode)">
+                        <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 138.14 147.54"><defs><style>.cls-1{fill:#fff;stroke:white;stroke-linecap:round;stroke-linejoin:round;stroke-width:30px;}</style></defs><polyline class="cls-1" points="69.07 10 69.07 137.54 128.14 86.56"/><line class="cls-1" x1="69.07" y1="137.54" x2="10" y2="86.56"/></svg>
+            </button>
+                
+            <button class="removeItem" onclick="removeItem(this.parentNode)">
+                        <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128.34 128.34"><defs><style>.cls-1{fill:none;stroke:white;stroke-linecap:round;stroke-linejoin:round;stroke-width:30px;}</style></defs><line class="cls-1" x1="118.34" y1="118.34" x2="10" y2="10"/><line class="cls-1" x1="10" y1="118.34" x2="118.34" y2="10"/></svg>
+            </button>
+                
+                <div class="editTextToolbar">
+                
+                    <input type="color" id="hex" name="hex" value="#0335fc" oninput="changeTextColor(event)">
+                    <button class="toggleBold" onclick="toggleBold(event)" value="normal">B</button>
+                <button class="toggleItalic" onclick="toggleItalic(event)" value="normal">I</button>
+                    
+            
+            </div>
+                
+            </div>
+        </script>
+
+        <script id="imageTemplate" type="text/html">
+
+<button class="removeItem" onclick="removeItem(this)">
+            <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128.34 128.34"><defs><style>.cls-1{fill:none;stroke:white;stroke-linecap:round;stroke-linejoin:round;stroke-width:30px;}</style></defs><line class="cls-1" x1="118.34" y1="118.34" x2="10" y2="10"/><line class="cls-1" x1="10" y1="118.34" x2="118.34" y2="10"/></svg>
+            </button>
+
+<input type="file"  accept="image/*" name="image" id="file"  onclick="event.stopPropagation();" onchange="loadFile(event); event.stopPropagation();" style="display: none;">
+<label for="file" style="cursor: pointer;">
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="18.4px"
+         height="18.4px" viewBox="0 0 18.4 18.4" style="overflow:visible;enable-background:new 0 0 18.4 18.4;" xml:space="preserve">
+        <g>
+            <path d="M18.1,8.3l-8.2-8c-0.4-0.4-1-0.4-1.4,0l-8.2,8C0,8.6-0.1,9,0.1,9.4C0.2,9.8,0.6,10,1,10h4.7v2.2c0,0.6,0.4,1,1,1h5.1
+                     c0.6,0,1-0.4,1-1V10h4.7c0.4,0,0.8-0.2,0.9-0.6C18.5,9,18.4,8.6,18.1,8.3z M11.8,8c-0.6,0-1,0.4-1,1v2.2H7.7V9c0-0.6-0.4-1-1-1H3.5
+                     l5.8-5.6L15,8H11.8z"/>
+            <path d="M11.8,13.5H6.7c-0.6,0-1,0.4-1,1v3c0,0.6,0.4,1,1,1h5.1c0.6,0,1-0.4,1-1v-3C12.8,13.9,12.3,13.5,11.8,13.5z M10.8,16.4H7.7
+                     v-1h3.1V16.4z"/>
+            </g>
+            </svg>
+    <text>Upload Media</text>
+
+            </label>
+<img id="output"/>
+
+        </script>
+        
+        <script id="textTemplate" type="text/html">
+            <input class="textInput" contentEditable="true" placeholder="Text" oninput="this.style.width = ((this.value.length + 0.5) * 1) + 'ch';"/>
+        
+        </script>
+
+    </head>
+
+    <body>
+        <div class="topMenu">
+            <img class="moodLogo" src="collager.png">
+
+            <div id="colorPicker">
+                <!-- <button id="colorButton">
+<svg class="colorPickerBox" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="25.8px"
+height="25.8px" viewBox="0 0 25.8 25.8" style="overflow:visible;enable-background:new 0 0 25.8 25.8;" xml:space="preserve">
+<g>
+<path d="M18.1,0H7.7C3.5,0,0,3.5,0,7.7v10.4c0,4.2,3.5,7.7,7.7,7.7h10.4c4.2,0,7.7-3.5,7.7-7.7V7.7C25.8,3.5,22.3,0,18.1,0z
+M23.8,18.1c0,3.1-2.6,5.7-5.7,5.7H7.7c-3.1,0-5.7-2.6-5.7-5.7V7.7C2,4.6,4.6,2,7.7,2h10.4c3.1,0,5.7,2.6,5.7,5.7V18.1z"/>
+</g>
+</svg>
+<img id="colorWheel" src="colorwheel.png">
+</button> -->
+                <input id ="colorButton" type="color" id="hex" name="hex" value="#d6d6d6">
+                
+
+            </div>
+            
+            <div class="clearAll" onclick="clearBoard()">
+                        <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128.34 128.34" ><line x1="118.34" y1="118.34" x2="10" y2="10"/><line x1="10" y1="118.34" x2="118.34" y2="10"/></svg>
+                        Clear All
+            </div>
+            
+            <div class="saveBoard">
+            <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.44 15.44"><polygon points="14.89 3.44 11.82 0.55 0.55 0.55 0.55 14.89 14.89 14.89 14.89 3.44"/><rect x="3.62" y="0.55" width="6.78" height="4.49"/><rect x="3.62" y="7.72" width="8.2" height="7.17"/><line class="cls-2" x1="5.51" y1="10.24" x2="9.93" y2="10.24"/><line class="cls-2" x1="5.51" y1="12.48" x2="9.93" y2="12.48"/></svg>
+                
+                <div class="saveTips">
+                    <img src="windows-tooltip.png" class="windowsTip">
+                    <img src="mac-tooltip.png" class="macTip">
+                </div>
+            </div> 
+
+
+            <div id="addMenu" class="dropdown">
+                <button id="addItemButton" class="dropbtn" onclick="toggleMenu()">
+                    <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.5 16.5"><line y1="8.25" x2="16.5" y2="8.25"/><line x1="8.25" y1="16.5" x2="8.25"/></svg>
+                </button>
+
+                <div class="dropdown-content" id="addMenuDropdown">
+                    <button id="addImage" onclick="addItem('image')">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="18.4px"
+                             height="18.4px" viewBox="0 0 18.4 18.4" style="overflow:visible;enable-background:new 0 0 18.4 18.4;" xml:space="preserve">
+                            <g>
+                                <path d="M18.4,17.5c0,0,0-0.1,0-0.1V1c0-0.6-0.4-1-1-1H1C0.4,0,0,0.4,0,1v16.4c0,0.1,0,0.1,0,0.1c0,0.1,0,0.1,0,0.2
+                                         c0,0.1,0.1,0.1,0.1,0.2c0,0.1,0.1,0.1,0.1,0.2c0.1,0.1,0.1,0.1,0.2,0.1c0,0,0.1,0.1,0.1,0.1c0,0,0,0,0,0c0.1,0.1,0.3,0.1,0.4,0.1
+                                         c0,0,0,0,0,0c0,0,0,0,0,0c0,0,0,0,0,0h16.4c0,0,0,0,0,0c0.1,0,0.1,0,0.2,0c0.1,0,0.1,0,0.2-0.1c0,0,0,0,0,0c0,0,0.1-0.1,0.1-0.1
+                                         c0.1,0,0.1-0.1,0.2-0.1c0,0,0.1-0.1,0.1-0.2c0-0.1,0.1-0.1,0.1-0.2C18.4,17.7,18.4,17.6,18.4,17.5z M16.4,2v11.5l-2.2-4
+                                         c-0.1-0.3-0.4-0.5-0.7-0.5c-0.3-0.1-0.6,0-0.8,0.2l-2.8,2.4L6.8,6.5C6.6,6.2,6.3,6,5.9,6C5.5,6,5.2,6.2,5,6.6L2,13V2H16.4z
+                                         M15.7,16.4H2.6L6,9.1l2.8,4.7C9,14,9.3,14.2,9.5,14.3c0.3,0,0.6,0,0.8-0.2l2.7-2.4L15.7,16.4z"/>
+                                <path d="M11.4,8.2c1.5,0,2.7-1.2,2.7-2.7s-1.2-2.7-2.7-2.7S8.7,4.1,8.7,5.6S9.9,8.2,11.4,8.2z M11.4,4.9c0.4,0,0.7,0.3,0.7,0.7
+                                         s-0.3,0.7-0.7,0.7s-0.7-0.3-0.7-0.7S11,4.9,11.4,4.9z"/>
+                            </g>
+                        </svg>
+                        <text>Picture</text>
+
+                    </button>
+                    <button id="addText" onclick="addItem('text')">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="17.4px"
+                             height="18px" viewBox="0 0 17.4 18" style="overflow:visible;enable-background:new 0 0 17.4 18;" xml:space="preserve">
+                            <path d="M13.5,18H3.9c-0.4,0-0.8-0.2-0.9-0.6s-0.1-0.8,0.2-1.1l2.5-2.8V5.6H4.8L1.7,8.5C1.4,8.8,1,8.9,0.6,8.7C0.2,8.5,0,8.2,0,7.8
+                                     V1c0-0.6,0.4-1,1-1h15.4c0.6,0,1,0.4,1,1v6.8c0,0.4-0.2,0.8-0.6,0.9c-0.4,0.2-0.8,0.1-1.1-0.2l-3.1-2.9h-0.9v7.9l2.5,2.8
+                                     c0.3,0.3,0.3,0.7,0.2,1.1C14.3,17.8,13.9,18,13.5,18z M6.1,16h5.2L10,14.6c-0.2-0.2-0.3-0.4-0.3-0.7V4.6c0-0.6,0.4-1,1-1h2.3
+                                     c0.3,0,0.5,0.1,0.7,0.3l1.7,1.6V2H2v3.5l1.7-1.6c0.2-0.2,0.4-0.3,0.7-0.3h2.3c0.6,0,1,0.4,1,1v9.3c0,0.2-0.1,0.5-0.2,0.7L6.1,16z"/>
+                        </svg>
+
+                        <text>Text</text>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="board">
+
+        </div>
+        
+        <a id="link"></a>
+
+
+
+
+    </body>
+
+
+
+
+
+
+</html>

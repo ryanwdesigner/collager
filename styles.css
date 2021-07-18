@@ -1,0 +1,701 @@
+@import url('https://fonts.googleapis.com/css?family=Overpass+Mono&display=swap');
+
+text {
+    font-family: 'Helvetica', sans-serif;
+}
+
+svg {
+    overflow: visible;
+    stroke-linecap: round;
+}
+
+path {
+    stroke-linecap: round;
+}
+g {
+    stroke-linecap: round;
+}
+
+body {
+    margin: auto;
+    background-color:white;
+    width: 100%;
+    box-sizing: border-box;
+
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    overflow: show;
+    padding-bottom: 30px;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 400px;
+  visibility: hidden;
+}
+
+.saveBoard {
+    position: absolute;
+    left: 40;
+    top: 8;
+    background-color: #121212;
+    width:16px;
+    padding: 6px;
+}
+
+.saveBoard svg {
+    stroke-width: 1.2px;
+    fill:none;
+    stroke: white;
+}
+
+.saveBoard:hover{
+    background-color: #B8B8B8;
+}
+
+.saveBoard:hover .windowsTip{
+    display: block;
+}
+
+.saveBoard:hover .macTip {
+    display:block;
+}
+
+.windowsTip {
+    display:none;
+    position:absolute;
+    height: 40px;
+    left:0;
+    top: 32;
+}
+
+.macTip {
+    display:none;
+    position:absolute;
+    height: 40px;
+    left: 0;
+    top: 76;
+}
+
+.topMenu {
+    position: fixed;
+    text-align: center;
+    width: 50%;
+    height: 40px;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: transparent;
+    z-index: 1000;
+}
+
+.board {
+    margin: auto;
+    margin-top: 45px;
+    width: 90%;
+    height: calc(98% - 55px);
+    background-color: #d6d6d6;
+    overflow: show;
+}
+
+#colorPicker {
+    position: absolute;
+    left: 6;
+    top: 8;
+}
+
+#colorButton {
+    width:28px;
+    height:28px;
+    padding: 0;
+    border: 2px solid #121212;
+    cursor: pointer;
+    background-color:transparent;
+    border-radius: 0px;
+}
+
+#colorButton:hover {
+    border-color:#B8B8B8;
+}
+
+#colorButton::-webkit-color-swatch {
+    width:5px;
+    height:24px;
+    border-radius:0px;
+    border:none;
+}
+
+#colorButton::-webkit-color-swatch-wrapper {
+	padding: 0;
+}
+
+#colorWheel {
+    position: absolute;
+    left: 1;
+}
+
+/* .clearAll {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    background-color: #121212;
+
+    right: 40;
+    top: 8px;
+    padding: 8px;
+}
+
+.clearAll svg {
+    stroke: white;
+    stroke-width: 24px;
+    margin-top: 1px;
+    width: 10px;
+}
+
+.clearAll:hover {
+    background-color: red;
+    cursor: pointer;
+    transition: background-color 0.4s ease-out;
+}
+
+.clearAll::before {
+    content:'Clear All';
+    width:28px;
+    height:28px;
+    right:0;
+    position: absolute;
+    top:0;
+    background-color: #121212;
+    color: white;
+    white-space: nowrap;
+    text-align: center;
+    opacity: 0%;
+    line-height:2.2;
+    font-size: 12px;
+    font-family:  Helvetica, sans-serif;
+    font-weight: bold;
+    
+}
+
+.clearAll:hover::before {
+    width:80px;
+    opacity:100%;
+    background-color: #ff2617;
+    transition: width ease-out 0.4s, background-color ease-out 0.4s;
+}
+*/
+
+.clearAll {
+    display:none;
+    color: white;
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 12px;
+    cursor: pointer;
+    position: fixed;
+    background-color: #121212;
+    text-align: center;
+    bottom: 8;
+    height: 28px;
+    width: 83px;
+    line-height: 2.35;
+    right: 8px;
+    
+}
+
+.clearAll:hover {
+    background-color: #ff2617;
+}
+
+.clearAll svg{
+    stroke: white;
+    width: 10px;
+    padding-right: 4px;
+    stroke-width: 20px;
+}
+
+
+#addMenu {
+    position: absolute;
+    right: 6;
+    top: 8;
+    z-index: 1000 !important;
+}
+.dropbtn {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 2px solid #121212;
+    cursor:pointer;
+    background-color:#121212;
+    border-radius:0px;
+}
+
+.dropbtn:hover svg {
+    fill: white;
+}
+
+.dropbtn:hover {
+    border-color: #B8B8B8;
+    background-color: #B8B8B8;
+}
+
+.dropbtn svg {
+    pointer-events: none;
+    stroke: white;
+    stroke-width: 2.7px;
+    width: 11px;
+    margin-top: -1px;
+    margin-left:-1px;
+}
+
+.dropdown-content {
+    display:none;
+    position: absolute;
+    right: -2;
+    top: 30;
+    color: white;
+}
+
+#addMenuDropdown button {
+    height: 40px;
+    width: 115px;
+    border: 2px solid #121212;
+    border-radius: 0px;
+    margin: 2px;
+    background-color: #121212;
+    text-align:left;
+    cursor: pointer;
+}
+
+#addMenuDropdown button svg {
+    fill: white;
+}
+
+#addmenuDropdown button text {
+    color: white;
+    font-weight: bold;
+    position:relative;
+    top:-3px;
+}
+
+#addMenuDropdown button:hover {
+    border-color: #B8B8B8;
+    background-color: #B8B8B8;
+}
+
+#addImage svg{
+    position:relative;
+    left: 3;
+    top: 2;
+    margin-right: 10px;
+    fill:#121212;
+}
+
+#addImage text{
+    color:#121212;
+}
+
+#addText svg{
+    position:relative;
+    left: 3;
+    top: 2;
+    margin-right: 10px;
+    fill: #121212;
+}
+
+#addText text{
+    color:#121212;
+}
+.moodLogo {
+    margin-top: 7px;
+    height:30px;
+}
+
+.show {display: block;}
+
+.textBox{
+    position:absolute;
+    left: 50%;
+    top: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    border: 2px solid transparent;
+    width: fit-content;
+    text-align: left;
+    font-family: 'Helvetica';
+    font-weight: bold;
+    cursor: grab;
+}
+
+.textBoxFixed{
+    position:absolute;
+    left: 50%;
+    top: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    border: 2px solid #121212;
+    width: fit-content;
+    text-align: left;
+    font-family: Helvetica;
+    font-weight: bold;
+    cursor: grab;
+}
+
+.textInput {
+    pointer-events:auto;
+    background: none;
+    color: #0335fc;
+    border: none;
+    width:4.2ch;
+    min-width: 4.2ch;
+    z-index:-1;
+    font-family: 'Overpass Mono';
+    font-weight:normal;
+}
+
+.textInput:focus {
+    outline: none;
+}
+
+.textInput::placeholder{
+    color: black;
+    opacity: 50%;
+}
+
+ .textToolbarFixed{
+    
+    top:-40;
+    left:-2;
+    transition: 0.2s ease-out;
+    opacity:100%;
+    display: inline;
+     position:absolute;
+    text-align:center;
+    height: 36px;
+    background-color: white;
+    border: 2px solid #121212;
+    width: 250px;
+    z-index:-1;
+    min-width:250px;
+    cursor:default;
+}
+
+.textBox:hover .textToolbar{
+    
+    top:-40;
+    left:-2;
+    transition: 0.2s ease-out;
+    opacity:100%;
+    display: inline;
+}
+
+.editTextToolbar {
+    display:inline;
+    position: absolute;
+    top: -42;
+    height:26;
+    left:-2;
+    background-color: white;
+    padding: 4px;
+    border: 2px solid #121212;
+}
+
+.editTextToolbar button {
+    background-color: #121212;
+    border: 2px solid #121212;
+    color:white;
+    height:26px;
+    width:26px;
+    border-radius: 0px;
+    font-weight:bold;
+}
+
+.editTextToolbar button:hover {
+    background-color: #B8B8B8 !important;
+    border-color: #B8B8B8 !important;
+}
+
+.editTextToolbar input {
+    width:26px;
+    height:26px;
+    margin: 0;
+    padding: 0;
+    border: 2px solid #121212;
+}
+
+.editTextToolbar input:hover {
+    border-color: #B8B8B8;
+}
+
+.editTextToolbar input::-webkit-color-swatch {
+    width:0px;
+    height:22px;
+    border-radius:0px;
+    border:none;
+}
+
+.editTextToolbar input::-webkit-color-swatch-wrapper {
+	padding: 0;
+}
+
+.toggleBold {
+    position:relative;
+    top:-6px;
+}
+
+.toggleItalic{
+    position:relative;
+    top:-6px;
+    font-family: Georgia;
+    font-weight: lighter;
+    font-style: italic;
+}
+
+.textBox:hover {
+    border-color: #121212;
+}
+
+.toggleEdit {
+    position: absolute;
+    right: 98px;
+    top:5px;
+    background-color:#121212;
+    border: 2px solid #121212;
+    color:white;
+    height:26px;
+    border-radius: 0px;
+    font-weight:bold;
+}
+
+.imageBox {
+    display:block;
+    position: absolute;
+    
+    left: 40%;
+    top: 30%;
+    
+    background: none;
+    padding: 0;
+    height: auto;
+    width: auto;
+    border:4px solid transparent;
+    text-align: center;
+    border-radius: 0px;
+    transform-origin: 0% 0%;
+    cursor:grab;
+}
+
+.imageBoxEmpty {
+    display:block;
+    position: absolute;
+    left: 0;
+    right:0;
+    top: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color:  white;
+    padding: 0;
+    height: 150;
+    width: 250;
+    border:2px solid #121212;
+    text-align: center;
+    cursor:grab;
+}
+
+.imageToolbarFixed{
+    top:-42;
+    left: 0;
+    transition: 0.2s ease-out;
+    opacity:100%;
+    display:inline;
+    position:absolute;
+    text-align:center;
+    height: 36px;
+    background-color: white;
+    border: 2px solid #121212;
+    width: 250px;
+    z-index:-1;
+    min-width:250px;
+    cursor:default;
+}
+
+.imageBox:hover .imageToolbar {
+    top:-42;
+    left: 0;
+    transition: 0.2s ease-out;
+    opacity:100%;
+    display:inline;
+}
+
+.imageBox:hover, {
+    border-color: #B8B8B8;
+}
+
+.imageBoxEmpty label {
+    padding: 10px 5px 8px 5px;
+    position: relative;
+    top: 40%;
+    font-family: Helvetica, sans-serif;
+    font-weight: bold;
+    border: 2px solid #121212;
+    border-radius: 0px;
+    color: white;
+    background-color: #121212;
+    fill: #121212;
+}
+
+.imageBox img {
+    display:block;
+    pointer-events: none;
+}
+
+.imageBoxEmpty label svg {
+    position: relative;
+    top: 3px;
+    margin-right: 7px;
+    fill: white;
+}
+
+.imageBoxEmpty label:hover, imageBoxEmpty label:hover svg {
+    background-color: #B8B8B8;
+    border-color: #B8B8B8;
+}
+
+.imageToolbar {
+    position: absolute;
+    top: 0;
+    text-align:center;
+    height: 36px;
+    background-color: white;
+    border: 2px solid #121212;
+    width: 200px;
+    z-index:-1;
+    min-width:200px;
+    transition: 0.2s ease-out;
+    cursor:default;
+    opacity:0%;
+    display:none;
+    /* transform: translateX(-25%); */
+}
+
+.textToolbar {
+    position:absolute;
+    top: 0;
+    left:0;
+    text-align:center;
+    height: 36px;
+    background-color: white;
+    border: 2px solid #121212;
+    width: 250px;
+    z-index:-1;
+    min-width:250px;
+    transition: 0.2s ease-out;
+    cursor:default;
+    opacity:0%;
+    display: none;
+    /* transform: translateX(-25%); */
+}
+
+.removeItem {
+    position: absolute;
+    right: 5px;
+    top:5px;
+    background-color: #121212;
+    border: 2px solid #121212;
+    color:#121212;
+    height:26px;
+    width:26px;
+    border-radius: 0px;
+    font-weight:bold;
+}
+.removeItem:hover, .moveUp:hover, .moveDown:hover, .toggleEdit:hover{
+    background-color: #B8B8B8;
+    border-color: #B8B8B8;
+    cursor:pointer;
+}
+
+.moveUp {
+    position: absolute;
+    right: 67px;
+    top:5px;
+    background-color: #121212;
+    border: 2px solid #121212;
+    color:white;
+    height:26px;
+    width:26px;
+    border-radius: 0px;
+    font-weight:bold;
+}
+
+.moveDown {
+    position: absolute;
+    right: 36px;
+    top:5px;
+    background-color: #121212;
+    border: 2px solid #121212;
+    color:#121212;
+    height:26px;
+    width:26px;
+    border-radius: 0px;
+    font-weight:bold;
+}
+
+.resizeSlider {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    border-radius:6px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    input[type='range'] {
+      overflow: hidden;
+      width: 80px;
+      -webkit-appearance: none;
+      background-color: #121212;
+    }
+    
+    input[type='range']::-webkit-slider-runnable-track {
+      height: 10px;
+      -webkit-appearance: none;
+      color: #13bba4;
+      margin-top: 0px;
+        border-radius:4px;
+    }
+    
+    input[type='range']::-webkit-slider-thumb {
+      width: 12px;
+      -webkit-appearance: none;
+      height: 12px;
+        margin-top:-1px;
+      cursor: ew-resize;
+      background: #B8B8B8;
+      box-shadow: -82px 0 0 80px #B8B8B8;
+        border-radius:6px;
+        
+    }
+
+}
+/** FF*/
+input[type="range"]::-moz-range-progress {
+  background-color: #B8B8B8; 
+}
+input[type="range"]::-moz-range-track {  
+  background-color: white;
+}
+/* IE*/
+input[type="range"]::-ms-fill-lower {
+  background-color: #B8B8B8; 
+}
+input[type="range"]::-ms-fill-upper {  
+  background-color: white;
+}
